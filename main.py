@@ -22,6 +22,8 @@ def main():
     average_price = dd.calculate_and_display_average_price(stock_data)
     print(average_price)
 
+    dd.notify_if_strong_fluctuations(stock_data, 10)
+
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period)
 
