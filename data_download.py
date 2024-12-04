@@ -1,3 +1,5 @@
+import os
+
 import yfinance as yf
 from pandas import DataFrame
 
@@ -35,3 +37,10 @@ def notify_if_strong_fluctuations(data:DataFrame, threshold: int):
     percentage_difference = (difference / min_price_close) * 100
     if percentage_difference > threshold:
         print(f"Уведомление: Цена акций колебалась более чем на {threshold}% за период.")
+
+def export_data_to_csv(data:DataFrame, filename):
+    data.to_csv(filename, index=False)
+    if os.path.isfile(filename):
+        print("Export success")
+    else:
+        raise FileExistsError("Export not success")

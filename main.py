@@ -22,7 +22,11 @@ def main():
     average_price = dd.calculate_and_display_average_price(stock_data)
     print(average_price)
 
+    # warning the user about the price threshold
     dd.notify_if_strong_fluctuations(stock_data, 10)
+
+    # export data to csv
+    dd.export_data_to_csv(stock_data, 'output.csv')
 
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period)
