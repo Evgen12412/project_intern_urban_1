@@ -28,8 +28,12 @@ def main():
     # export data to csv
     dd.export_data_to_csv(stock_data, 'output.csv')
 
+    dd.calculate_rsi(stock_data)
+
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period)
+
+
 
 
 if __name__ == "__main__":

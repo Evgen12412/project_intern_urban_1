@@ -16,7 +16,7 @@ def add_moving_average(data, window_size=5):
 
 def calculate_and_display_average_price(data:DataFrame):
     '''
-    функция вычисляющая среднюю цену фкций за заданный период при закрытии'''
+    функция вычисляющая среднюю цену акций за заданный период при закрытии'''
     if 'Close' not in data.columns:
         raise ValueError("DataFrame does not contain 'Close' column")
     total_sum = data['Close'].sum()
@@ -39,8 +39,21 @@ def notify_if_strong_fluctuations(data:DataFrame, threshold: int):
         print(f"Уведомление: Цена акций колебалась более чем на {threshold}% за период.")
 
 def export_data_to_csv(data:DataFrame, filename):
+    '''Функция экспорта данных в файл '''
     data.to_csv(filename, index=False)
     if os.path.isfile(filename):
         print("Export success")
     else:
         raise FileExistsError("Export not success")
+
+def calculate_rsi(data:DataFrame, period=14):
+    delta = data['Close'].diff()
+    gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
+    loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
+    rs = gain / loss
+    rsi = 100 - (100 / (1 + rs))
+    print(f'gain: {gain}\n')
+    print(f'loss: {loss}\n')
+    print(f'rs: {rs}\n')
+    print(f'rsi: {rsi}\n')
+    return rsi
