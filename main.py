@@ -33,6 +33,8 @@ def main():
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period)
 
+    dplt.create_and_show_rsi_plot(stock_data, ticker, period)
+
 
 
 

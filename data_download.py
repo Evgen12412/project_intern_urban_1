@@ -1,5 +1,6 @@
 import os
 
+import ta
 import yfinance as yf
 from pandas import DataFrame
 
@@ -46,14 +47,7 @@ def export_data_to_csv(data:DataFrame, filename):
     else:
         raise FileExistsError("Export not success")
 
-def calculate_rsi(data:DataFrame, period=14):
-    delta = data['Close'].diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=period).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=period).mean()
-    rs = gain / loss
-    rsi = 100 - (100 / (1 + rs))
-    print(f'gain: {gain}\n')
-    print(f'loss: {loss}\n')
-    print(f'rs: {rs}\n')
-    print(f'rsi: {rsi}\n')
-    return rsi
+def calculate_rsi(data: DataFrame, window=14):
+    # Расчет RSI с использованием библиотеки ta
+    data['RSI'] = ta.momentum.RSIIndicator(data['Close'], window=window).rsi()
+    print(data[['Close', 'RSI']])
