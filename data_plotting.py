@@ -29,3 +29,33 @@ def create_and_save_plot(data, ticker, period, filename=None):
 
     plt.savefig(filename)
     print(f"График сохранен как {filename}")
+
+def create_and_show_rsi_plot(data, ticker, period, filename=None):
+    plt.figure(figsize=(14, 8))
+
+    # Создаем две оси: одну для цены и скользящей средней, другую для RSI
+    ax1 = plt.subplot(2, 1, 1)
+    ax2 = plt.subplot(2, 1, 2, sharex=ax1)
+
+    # График цены закрытия и скользящей средней на первой оси
+    ax1.plot(data.index, data['Close'], label='Close Price')
+    ax1.plot(data.index, data['Moving_Average'], label='Moving Average')
+    ax1.set_title(f"{ticker} Цена акций с течением времени")
+    ax1.set_ylabel("Цена")
+    ax1.legend()
+
+    # График RSI на второй оси
+    ax2.plot(data.index, data['RSI'], label='RSI', color='orange')
+    ax2.set_title("RSI")
+    ax2.set_xlabel("Дата")
+    ax2.set_ylabel("RSI")
+    ax2.legend()
+
+    if filename is None:
+        filename = f"{ticker}_{period}_stock_price_chart.png"
+
+    plt.savefig(filename)
+    print(f"График сохранен как {filename}")
+
+    plt.savefig(filename)
+    print(f"График сохранен как {filename}")
