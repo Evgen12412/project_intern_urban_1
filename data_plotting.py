@@ -30,6 +30,7 @@ def create_and_save_plot(data, ticker, period, filename=None):
     plt.savefig(filename)
     print(f"График сохранен как {filename}")
 
+
 def create_and_show_rsi_plot(data, ticker, period, filename=None):
     plt.figure(figsize=(14, 8))
 

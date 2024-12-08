@@ -15,7 +15,8 @@ def add_moving_average(data, window_size=5):
     data['Moving_Average'] = data['Close'].rolling(window=window_size).mean()
     return data
 
-def calculate_and_display_average_price(data:DataFrame):
+
+def calculate_and_display_average_price(data: DataFrame):
     '''
     функция вычисляющая среднюю цену акций за заданный период при закрытии'''
     if 'Close' not in data.columns:
@@ -25,7 +26,8 @@ def calculate_and_display_average_price(data:DataFrame):
     average_price = round(total_sum / count, 2)
     return f' average price closed: {average_price}'
 
-def notify_if_strong_fluctuations(data:DataFrame, threshold: int):
+
+def notify_if_strong_fluctuations(data: DataFrame, threshold: int):
     '''Функция которая отправляет уведомление пользователю если цена закрытия
      колебалась на указанный  процент в период времени введенным пользователем'''
     if not isinstance(threshold, int):
@@ -39,13 +41,15 @@ def notify_if_strong_fluctuations(data:DataFrame, threshold: int):
     if percentage_difference > threshold:
         print(f"Уведомление: Цена акций колебалась более чем на {threshold}% за период.")
 
-def export_data_to_csv(data:DataFrame, filename):
+
+def export_data_to_csv(data: DataFrame, filename):
     '''Функция экспорта данных в файл '''
     data.to_csv(filename, index=False)
     if os.path.isfile(filename):
         print("Export success")
     else:
         raise FileExistsError("Export not success")
+
 
 def calculate_rsi(data: DataFrame, window=14):
     # Расчет RSI с использованием библиотеки ta
