@@ -1,7 +1,3 @@
-from turtledemo.penrose import start
-
-from numpy.ma.extras import average
-
 import data_download as dd
 import data_plotting as dplt
 

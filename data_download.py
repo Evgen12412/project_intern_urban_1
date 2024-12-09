@@ -1,6 +1,5 @@
 import os
 from datetime import datetime
-from symbol import continue_stmt
 
 import ta
 import yfinance as yf
