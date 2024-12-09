@@ -26,7 +26,7 @@ def main():
     end = input("Введите дату конца периода (например, '2023-11-10'): ")
 
     # Fetch stock data
-    stock_data = dd.fetch_stock_data(ticker, '2023-10-01', '2023-11-10', period)
+    stock_data = dd.fetch_stock_data(ticker, start, end, period)
 
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)
