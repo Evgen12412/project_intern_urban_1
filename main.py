@@ -1,3 +1,5 @@
+from turtledemo.penrose import start
+
 from numpy.ma.extras import average
 
 import data_download as dd
@@ -8,14 +10,23 @@ def main():
     print("Добро пожаловать в инструмент получения и построения графиков биржевых данных.")
     print(
         "Вот несколько примеров биржевых тикеров, которые вы можете рассмотреть: AAPL (Apple Inc), GOOGL (Alphabet Inc), MSFT (Microsoft Corporation), AMZN (Amazon.com Inc), TSLA (Tesla Inc).")
+    print()
     print(
         "Общие периоды времени для данных о запасах включают: 1д, 5д, 1мес, 3мес, 6мес, 1г, 2г, 5г, 10л, с начала года, макс.")
+    print()
+    print(
+        "Так же вы можете задать дату начала временного периода и дату конца периода в формате например(start - 2023-10-01 и. конец - 2023-11-10) будет показан период с 1 числа до 10 го не включительно")
+    print(
+        "Так же следует учесть что если вы у казали период 1mo то и при указании конкретнной даты учитывайте что будет показан промежуток за указанный период")
+    print("Если вы не хотите устанавливать дату начало и конца просто нажмите enter")
 
     ticker = input("Введите тикер акции (например, «AAPL» для Apple Inc):»")
     period = input("Введите период для данных (например, '1mo' для одного месяца): ")
+    start = input("Введите дату начала периода (например, '2023-10-01'): ")
+    end = input("Введите дату конца периода (например, '2023-11-10'): ")
 
     # Fetch stock data
-    stock_data = dd.fetch_stock_data(ticker, period)
+    stock_data = dd.fetch_stock_data(ticker, '2023-10-01', '2023-11-10', period)
 
     # Add moving average to the data
     stock_data = dd.add_moving_average(stock_data)

@@ -1,13 +1,40 @@
 import os
+from datetime import datetime
 
 import ta
 import yfinance as yf
 from pandas import DataFrame
 
 
-def fetch_stock_data(ticker, period='1mo'):
+def fetch_stock_data(ticker, start=None, end=None, period='1mo'):
     stock = yf.Ticker(ticker)
-    data = stock.history(period=period)
+
+    # Проверка формата дат
+    if start is not None:
+        try:
+            start = datetime.strptime(start, '%Y-%m-%d')
+        except ValueError:
+            print("Ошибка: Дата начала не имеет распознаваемого формата. Используйте формат 'YYYY-MM-DD'.")
+            return None
+
+    if end is not None:
+        try:
+            end = datetime.strptime(end, '%Y-%m-%d')
+        except ValueError:
+            print("Ошибка: Дата конца не имеет распознаваемого формата. Используйте формат 'YYYY-MM-DD'.")
+            return None
+
+    # Если start и end не указаны, используем период по умолчанию
+    if start is None and end is None:
+        data = stock.history(period=period)
+    else:
+        data = stock.history(start=start, end=end)
+
+    # Проверка на наличие данных
+    if data.empty:
+        print(f"Ошибка: Данные для тикера {ticker} в указанном диапазоне дат отсутствуют.")
+        return None
+
     return data
 
 
