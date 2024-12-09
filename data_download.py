@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from symbol import continue_stmt
 
 import ta
 import yfinance as yf
@@ -11,18 +12,26 @@ def fetch_stock_data(ticker, start=None, end=None, period='1mo'):
 
     # Проверка формата дат
     if start is not None:
-        try:
-            start = datetime.strptime(start, '%Y-%m-%d')
-        except ValueError:
-            print("Ошибка: Дата начала не имеет распознаваемого формата. Используйте формат 'YYYY-MM-DD'.")
-            return None
+        if start.strip() == '':
+            start = None
+        else:
+            try:
+                start = datetime.strptime(start, '%Y-%m-%d')
+
+
+            except ValueError:
+                print("Ошибка: Дата начала не имеет распознаваемого формата. Используйте формат 'YYYY-MM-DD'.")
+
 
     if end is not None:
-        try:
-            end = datetime.strptime(end, '%Y-%m-%d')
-        except ValueError:
-            print("Ошибка: Дата конца не имеет распознаваемого формата. Используйте формат 'YYYY-MM-DD'.")
-            return None
+        if end.strip() == '':
+            end = None
+        else:
+            try:
+                end = datetime.strptime(end, '%Y-%m-%d')
+            except ValueError:
+                print("Ошибка: Дата конца не имеет распознаваемого формата. Используйте формат 'YYYY-MM-DD'.")
+
 
     # Если start и end не указаны, используем период по умолчанию
     if start is None and end is None:
