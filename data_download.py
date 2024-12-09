@@ -22,7 +22,6 @@ def fetch_stock_data(ticker, start=None, end=None, period='1mo'):
             except ValueError:
                 print("Ошибка: Дата начала не имеет распознаваемого формата. Используйте формат 'YYYY-MM-DD'.")
 
-
     if end is not None:
         if end.strip() == '':
             end = None
@@ -31,7 +30,6 @@ def fetch_stock_data(ticker, start=None, end=None, period='1mo'):
                 end = datetime.strptime(end, '%Y-%m-%d')
             except ValueError:
                 print("Ошибка: Дата конца не имеет распознаваемого формата. Используйте формат 'YYYY-MM-DD'.")
-
 
     # Если start и end не указаны, используем период по умолчанию
     if start is None and end is None:
