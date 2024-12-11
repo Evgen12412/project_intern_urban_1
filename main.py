@@ -20,6 +20,7 @@ def main():
     period = input("Введите период для данных (например, '1mo' для одного месяца): ")
     start = input("Введите дату начала периода (например, '2023-10-01'): ")
     end = input("Введите дату конца периода (например, '2023-11-10'): ")
+    style = input("Вы можете выбрать отображения графика в определенном стиле для этого введите cl(classic) или d(dark_background)")
 
     # Fetch stock data
     stock_data = dd.fetch_stock_data(ticker, start, end, period)
@@ -41,7 +42,7 @@ def main():
     dd.calculate_rsi(stock_data)
 
     # Plot the data
-    dplt.create_and_save_plot(stock_data, ticker, period)
+    dplt.create_and_save_plot(stock_data, ticker, period, style)
 
     # Plot the rsi
     dplt.create_and_show_rsi_plot(stock_data, ticker, period)
