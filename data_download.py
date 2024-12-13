@@ -88,3 +88,15 @@ def calculate_rsi(data: DataFrame, window=14):
     # Расчет RSI с использованием библиотеки ta
     data['RSI'] = ta.momentum.RSIIndicator(data['Close'], window=window).rsi()
     print(data[['Close', 'RSI']])
+
+def calculate_and_display_indicators(data):
+    """
+    Рассчитывает и отображает дополнительные статистические индикаторы,
+    такие как стандартное отклонение цены закрытия.
+
+    :param data: pd.DataFrame, данные с колонкой 'Close'.
+    :return: pd.DataFrame, данные с добавленными индикаторами.
+    """
+    data['Close_Std'] = data['Close'].rolling(window=30).std()
+    print(data.tail())
+    return data

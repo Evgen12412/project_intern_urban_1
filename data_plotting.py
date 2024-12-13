@@ -66,5 +66,38 @@ def create_and_show_rsi_plot(data, ticker, period, filename=None):
     plt.savefig(filename)
     print(f"График сохранен как {filename}")
 
+
+
+def create_and_save_plot_indicators(data, ticker, period, style, filename=None):
+    """
+    Создаёт и сохраняет график цены закрытия и стандартного отклонения.
+
+    :param data: pd.DataFrame, данные с колонками 'Close' и 'Close_Std'.
+    :param ticker: str, тикер акции.
+    :param period: str, период данных.
+    :param filename: str, имя файла для сохранения графика.
+    """
+    if style is None or style == '':
+        plt.style.use('default')
+    elif style == 'cl':
+        plt.style.use('classic')
+    elif style == 'd':
+        plt.style.use('dark_background')
+    else:
+        raise ValueError("Введеное значение не верно. Выберите нужное")
+    plt.figure(figsize=(14, 7))
+    plt.plot(data['Close'], label='Цена закрытия', color='blue')
+    plt.plot(data['Close_Std'], label='Стандартное отклонение (30 дней)', color='red', linestyle='--')
+    plt.title(f'Цена закрытия и стандартное отклонение для {ticker}')
+    plt.xlabel('Дата')
+    plt.ylabel('Цена / Стандартное отклонение')
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+    if filename is None:
+        filename = f"{ticker}_{period}_close_std.png"
+
     plt.savefig(filename)
     print(f"График сохранен как {filename}")
+
