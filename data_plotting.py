@@ -68,7 +68,6 @@ def create_and_show_rsi_plot(data, ticker, period, filename=None):
     print(f"График сохранен как {filename}")
 
 
-
 def create_and_save_plot_indicators(data, ticker, period, style, filename=None):
     """
     Создаёт и сохраняет график цены закрытия и стандартного отклонения.
@@ -109,6 +108,7 @@ def create_interactive_plot(data):
     :param data:
     :return:
     '''
+
     # Проверка наличия колонки 'Close'
     if 'Close' not in data.columns:
         print("Колонка 'Close' отсутствует в данных.")
@@ -149,4 +149,3 @@ def create_interactive_plot(data):
 
     # Отображение графика
     fig.show()
-
