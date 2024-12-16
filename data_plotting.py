@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import plotly.graph_objects as go
 
 
 def create_and_save_plot(data, ticker, period, style, filename=None):
@@ -100,4 +101,52 @@ def create_and_save_plot_indicators(data, ticker, period, style, filename=None):
 
     plt.savefig(filename)
     print(f"График сохранен как {filename}")
+
+
+def create_interactive_plot(data):
+    '''
+    Создает интерактивный график с ценой закрытия
+    :param data:
+    :return:
+    '''
+    # Проверка наличия колонки 'Close'
+    if 'Close' not in data.columns:
+        print("Колонка 'Close' отсутствует в данных.")
+        return
+
+    # Вычисление среднего значения колонки 'Close'
+    close_mean = data['Close'].mean()
+    print(f"Среднее значение колонки 'Close': {close_mean:.2f}")
+
+    # Проверка наличия колонки 'Date'
+    if 'Date' not in data.columns:
+        if pd.api.types.is_datetime64_any_dtype(data.index):
+            dates = data.index
+        else:
+            print("Информация о дате отсутствует или не имеет распознаваемого формата.")
+            return
+    else:
+        if not pd.api.types.is_datetime64_any_dtype(data['Date']):
+            data['Date'] = pd.to_datetime(data['Date'])
+        dates = data['Date']
+
+    # Создание интерактивного графика
+    fig = go.Figure()
+
+    # Добавление линии цены закрытия
+    fig.add_trace(go.Scatter(x=dates, y=data['Close'], mode='lines', name='Close Price'))
+
+    # Добавление горизонтальной линии для среднего значения
+    fig.add_hline(y=close_mean, line_dash="dash", line_color="red", name='Среднее значение')
+
+    # Настройка внешнего вида графика
+    fig.update_layout(
+        title="Интерактивный график цены закрытия",
+        xaxis_title="Дата",
+        yaxis_title="Цена",
+        template="plotly_dark"  # Темная тема
+    )
+
+    # Отображение графика
+    fig.show()
 
