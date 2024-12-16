@@ -54,3 +54,20 @@ def calculate_rsi(data: DataFrame, window=14):
 - дефолтное отображение
 
 ![img_10.png](img_10.png)
+
+# Отображение статистического индикатора - "стандартного отклонения цены закрытия"
+
+за отображение отвечает функция: <br>
+def create_and_save_plot_indicators(data, ticker, period, filename=None):
+
+- график <br>
+
+![img_13.png](img_13.png)
+
+# Создание интерактивного графика
+
+за отображение отвечает функция: <br>
+def create_interactive_plot(data)
+
+
+![img_14.png](img_14.png)

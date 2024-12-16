@@ -41,11 +41,19 @@ def main():
     # calculate rsi
     dd.calculate_rsi(stock_data)
 
+    # new indicators
+    dd.calculate_and_display_indicators(stock_data)
+
     # Plot the data
     dplt.create_and_save_plot(stock_data, ticker, period, style)
 
+    # Plot interactive
+    dplt.create_interactive_plot(stock_data)
+
     # Plot the rsi
     dplt.create_and_show_rsi_plot(stock_data, ticker, period)
+
+    dplt.create_and_save_plot_indicators(stock_data, ticker, period, style)
 
 
 if __name__ == "__main__":
